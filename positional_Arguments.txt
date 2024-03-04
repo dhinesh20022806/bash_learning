@@ -1,0 +1,5 @@
+Arguments are a specific positions
+
+Commands can take in arguments at a specific position, countion from one (o reserved for the shell).
+
+
