@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Script to update Visual Studio Code
+
+# Download the latest stable version
+
+wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64' -O /tmp/code_latest_amd64.deb
+
+# Install the downloaded package
+
+sudo dpkg -i /tmp/code_latest_amd64.deb
+
+# Cleanup
+
+rm /tmp/code_latest_amd64.deb
+

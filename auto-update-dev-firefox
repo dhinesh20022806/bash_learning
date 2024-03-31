@@ -1,0 +1,31 @@
+#!/bin/bash
+
+
+# Path to your Firefox Developer Edition Installation directory
+INSTALL_DIR="/opt/firefoxDevelopEdition"
+
+#URL TO download the latest version 
+DOWNLOAD_URL="https://download.mozilla.org/?product=firefox-devedition-latest-ssl&os=linux64&lang=en-US"
+
+# Temporary directory for downloading
+TEMP_DIR="/tmp"
+
+# Download the latest version
+echo "Dowlading the latest version of Firefox Developer Edition..."
+wget -O "$TEMP_DIR/firefox.tar.bz2" "$DOWNLOAD_URL"
+
+# Extract downloaded archive
+echo "Extracting archive..."
+tar -xjf "$TEMP_DIR/firefox.tar.bz2" -C "$TEMP_DIR"
+
+# close Firefox Developer Edition if it's running
+if pgrep firefox_dev; then
+    echo "Closing Firefox Developer Edition...."
+    pkill firefox_dev
+fi
+
+# Move the extracted files to installation directory
+echo "Updating Firefox Developer Edition...."
+sudo rm -rf "$INSTALL_DIR"
+sudo mv "$TEMP_DIR/firefox" "$INSTALL_DIR"
+                                                       

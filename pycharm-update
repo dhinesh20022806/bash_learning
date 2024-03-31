@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# PyCharm installation directory
+INSTALL_DIR="/opt/pycharm-community"
+
+# URL to download the latest version (replace 'latest' with the actual version)
+DOWNLOAD_URL="https://download.jetbrains.com/python/pycharm-community-latest.tar.gz"
+
+# Temporary directory for downloading and extraction
+TEMP_DIR=$(mktemp -d)
+
+# Download the latest version
+echo "Downloading the latest version of PyCharm..."
+wget -O "$TEMP_DIR/pycharm.tar.gz" "$DOWNLOAD_URL"
+
+# Extract downloaded archive
+echo "Extracting archive..."
+tar -xzf "$TEMP_DIR/pycharm.tar.gz" -C "$TEMP_DIR"
+
+# Close PyCharm if it's running
+if pgrep pycharm; then
+    echo "Closing PyCharm..."
+    pkill pycharm
+fi
+
+# Replace the existing installation with the new version
+echo "Updating PyCharm..."
+sudo rm -rf "$INSTALL_DIR"
+sudo mv "$TEMP_DIR/pycharm-community-"* "$INSTALL_DIR"
+
+# Cleanup
+echo "Cleaning up..."
+rm -rf "$TEMP_DIR"
+
+echo "PyCharm has been updated successfully!"
+
